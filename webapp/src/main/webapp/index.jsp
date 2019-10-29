@@ -1,73 +1,34 @@
-<? PHP      
-session_start();
-?>
-
 <html>
 <head>
-<title> Movie Database </title>
+
+<title>
+Login page
+</title>
 </head>
-
-<?PHP
-
-$_SESSION["loggedInUser"] = $username;
-
-
-    try {
-        // open connection to MongoDB server
-        $conn = new Mongo('localhost');
-
-        // access database
-        $db = $conn->test;
-
-        // access collection
-        $collection = $db->items;
-
-
-        $userName = $_POST['username'];
-        $userPass = $_POST['userPassword'];
-
-
-        $user = $db->$collection->findOne(array('username'=> 'user1', 'password'=> 'pass1'));
-
-        foreach ($user as $obj) {
-            echo 'Username' . $obj['username'];
-            echo 'password: ' . $obj['password'];
-            if($userName == 'user1' && $userPass == 'pass1'){
-                echo 'found'            
-            }
-            else{
-                echo 'not found'            
-            }
-
-        }
-
-        // disconnect from server
-        $conn->close();
-
-    } catch (MongoConnectionException $e) {
-        die('Error connecting to MongoDB server');
-    } catch (MongoException $e) {
-        die('Error: ' . $e->getMessage());
-    }
-
-$_SESSION["loggedInUser"] = $correct;
-
-?>
-
 <body>
-<br>
-<center><h1> Welcome to CS348 Login Page </h1></center>
-<br>
-<form action="page2.php" METHOD="POST">
-<label>Username :</label>
-<input type="text" Name="username">
-<br>
-<label>Password :</label>
-<input type="password" Name="userPassword">
-<br>
-<br>
-<input type="submit" value="Login">
-<br>
-</FORM>
+<h1 style="font-family:Comic Sans Ms;text-align="center";font-size:20pt;
+color:#00FF00;>
+Simple Login Page
+</h1>
+<form name="login">
+Username<input type="text" name="userid"/>
+Password<input type="password" name="pswrd"/>
+<input type="button" onclick="check(this.form)" value="Login"/>
+<input type="reset" value="Cancel"/>
+</form>
+<script language="javascript">
+function check(form)/*function to check userid & password*/
+{
+ /*the following code checkes whether the entered userid and password are matching*/
+ if(form.userid.value == "admin" && form.pswrd.value == "admin")
+  {
+    alert("Login Successfull!")
+  }
+ else
+ {
+   alert("Error Password or Username")/*displays error message*/
+  }
+}
+</script>
 </body>
 </html>
